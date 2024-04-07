@@ -1,6 +1,5 @@
 import pandas as pd
 import requests as rq 
-pip install polygon-api-client
 from polygon import RESTClient
 
 client = RESTClient() # POLYGON_API_KEY is used
