@@ -20,4 +20,4 @@ tickers_df = fetch_tickers(apikey)
 
 print(tickers_df.head(10))
 
-#next Url Not working
+#next Url Not working. Ask about this
