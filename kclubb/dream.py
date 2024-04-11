@@ -1,6 +1,11 @@
+import math
+
 class Monster:
     mname = "Zues"
     scaryscore = 4
+    def __init__(self) -> None:
+        self.instanceattribute = 5
+    @staticmethod
     def roar():
         pass
     def changescore(newscore):
@@ -18,6 +23,15 @@ def outsidefunction():
     pass
 
 
+
+newmonster = Monster()
+newmonster.instanceattribute = 10
+
+
+mymathclass = math()
+mypi = math.pi
+
+math.cos()
 
 
 

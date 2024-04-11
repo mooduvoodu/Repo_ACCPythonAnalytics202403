@@ -17,7 +17,7 @@ def fetch_tickers(api_key):
         if tickerdata.get('next_url'):
             api_url = tickerdata.get('next_url') + f'&apiKey={api_key}'  # Update the URL for the next request
         else:
-            break
+           break
 
     # Convert the list of tickers to a DataFrame
     df_tickers = pd.json_normalize(tickers)
@@ -30,7 +30,7 @@ tickers_df = fetch_tickers(api_key)
 # Display the first 10 rows of the DataFrame
 print(tickers_df.head(10))
 
-tickers_df.to_csv("tickers.csv", index=False)
+tickers_df.to_csv("/workspaces/Repo_ACCPythonAnalytics202403/kclubb/tickers.csv", index=False)
 
 
 

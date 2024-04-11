@@ -7,11 +7,11 @@ import pandas
 import datetime
 
 
-df  = pandas.read_csv('/workspaces/Repo_ACCPythonAnalytics20231102/datasets/churn_prediction.csv')
+df  = pandas.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/classfiles/datasets/churn_prediction.csv')
 
-df2 = pandas.read_csv('/workspaces/Repo_ACCPythonAnalytics20231102/datasets/3_stephen_curry_shot_chart_2023.csv')
+df2 = pandas.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/classfiles/datasets/3_stephen_curry_shot_chart_2023.csv')
 
-print(df)
+display(df)
 
 
 df.head()
