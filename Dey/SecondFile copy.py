@@ -16,7 +16,7 @@ def fetch_stock_data():
         stockdata = PGresponse.json()
         stock.extend(stockdata['results'])
         if stockdata.get('next_url'):
-            api_url = stockdata.get('next_url') + f'&apiKey={7JbEpLM6e6J0nsQk8BS8kVKKJbFhDAIO}'  # Update the URL for the next request
+            api_url = stockdata.get('next_url') + f'&apiKey=7JbEpLM6e6J0nsQk8BS8kVKKJbFhDAIO'  # Update the URL for the next request
         else:
             break
     # Convert the list of stocks to a DataFrame
