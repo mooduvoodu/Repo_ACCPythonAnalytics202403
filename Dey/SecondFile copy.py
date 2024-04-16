@@ -24,8 +24,8 @@ def fetch_stock_data():
     return df_stockdata
 
 stock_df=fetch_stock_data()
-stock_df.to_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/SecondFile.py"stockdata.csv"', index=False)
-df = pd.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/SecondFile.py"stockdata.csv"')
+stock_df.to_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/stockdata.csv', index=False)
+df = pd.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/stockdata.csv')
 print(df.head(10))
 
 
@@ -55,6 +55,6 @@ def fetch_stock_data():
     return df_stockdata
 
 stock_df2=fetch_stock_data()
-stock_df2.to_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/SecondFile.py"stockdata.csv"', index=False)
-df2 = pd.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/SecondFile.py"stockdata.csv"')
+stock_df2.to_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/File1.csv', index=False)
+df2 = pd.read_csv('/workspaces/Repo_ACCPythonAnalytics202403/Dey/File1.csv')
 print(df2.head(10))
