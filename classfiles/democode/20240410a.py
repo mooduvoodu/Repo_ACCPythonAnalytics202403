@@ -67,7 +67,7 @@ print(df.groupby('gender')['occupation'].value_counts().reset_index())
 
 #Boolean Subsetting
 
-display(df.loc[df['current_month_balance'] > 10000.0])
+#display(df.loc[df['current_month_balance'] > 10000.0])
 
 
 #Creating ad hoc dataframes

@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+from datetime import datetime as dt, timezone
 
 def fetch_tickers(api_key):
     api_url = f'https://api.polygon.io/v3/reference/tickers?type=CS&market=stocks&active=true&limit=500&apiKey={api_key}'
@@ -25,17 +26,58 @@ def fetch_tickers(api_key):
 
 # Use your API key here
 api_key = 'dIUMbUHa3jguPZ9WiF5HUgIS4FWhPWlq'
-tickers_df = fetch_tickers(api_key)
+#tickers_df = fetch_tickers(api_key)
 
 # Display the first 10 rows of the DataFrame
-print(tickers_df.head(10))
+#print(tickers_df.head(10))
 
-tickers_df.to_csv("/workspaces/Repo_ACCPythonAnalytics202403/kclubb/tickers.csv", index=False)
+#tickers_df.to_csv("/workspaces/Repo_ACCPythonAnalytics202403/kclubb/tickers.csv", index=False)
+
+#test aggr load process
+
+ticketlist = ['AAPL','UWMC','DIS','SNOW','WMT']
+
+def fetch_stock_data(tlist,aggrtime,startfromdate,opmode, enddt = dt.now(timezone.utc)):
+    #string in 'yyyy-mm-dd' format
+    fenddt = enddt.strftime('%Y-%m-%d')
+    tickers = tlist
+    roundtripcounter = 0
+    tickeraggrdatalist = []
+  
+    match opmode:
+        case 'full':
+            for t in tlist:
+                print(f'working on stock {t}')
+                api_url = f'https://api.polygon.io/v2/aggs/ticker/AAPL/range/10/second/{startfromdate}/{fenddt}?adjusted=true&sort=asc&limit=50000&apiKey={api_key}'
+                while api_url:
+                    roundtripcounter += 1
+                    print(f'Round trip #{roundtripcounter}')
+                    PGresponse = requests.get(api_url)
+                    if PGresponse.status_code != 200:
+                        raise ValueError("API request failed. Please check your API key and network connection.")
+                    tickeraggrdata = PGresponse.json()
+                    tickeraggrdatalist.extend(tickeraggrdata['results'])
+                    if tickeraggrdata.get('next_url'):
+                        api_url = tickeraggrdata.get('next_url') + f'&apiKey={api_key}'  # Update the URL for the next request
+                    else:
+                        break
+
+            # Convert the list of tickeraggr to a DataFrame
+                df_tickeraggr = pd.json_normalize(tickeraggrdatalist)
+                df_tickeraggr.to_csv(f"/workspaces/Repo_ACCPythonAnalytics202403/kclubb/stockhistory/{t}.csv", index=False)
+
+        case 'incremental': #figure out the most recent date for each file and use that as the starting point.
+            pass
+                #is there an existing file for that ticker. if there is go get the latest timestamp
+                #go get data from the last timestamp and Now
+                #merge those 2 together, remove duplicates for overlap day and write back to file.. overite file.
+
+        case _:
+            pass
 
 
-
-
-
+api_key = 'dIUMbUHa3jguPZ9WiF5HUgIS4FWhPWlq'
+tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','full')
 
 
 
