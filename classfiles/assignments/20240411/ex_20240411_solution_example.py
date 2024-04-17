@@ -109,7 +109,8 @@ def fetch_stock_data(tlist,aggrtime,startfromdate,opmode, enddt = dt.now(timezon
         case _:
             pass
 
-
+# ACTUAL CALLING CODE
+        
 api_key = 'dIUMbUHa3jguPZ9WiF5HUgIS4FWhPWlq'
 tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','full')
 
