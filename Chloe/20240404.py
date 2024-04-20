@@ -18,16 +18,12 @@ def fetch_tickers(api_key):
             api_url = tickerdata.get('next_url') + f'&apiKey={api_key}'  # Update the URL for the next request
         else:
             break
-
-    # Convert the list of tickers to a DataFrame
     df_tickers = pd.json_normalize(tickers)
     return df_tickers
 
-# Use your API key here
 api_key = 'BDRYmUV3NU29r6y734HcvipzFA6GQMzt'
 tickers_df = fetch_tickers(api_key)
 
-# Display the first 10 rows of the DataFrame
 print(tickers_df.head(10))
 
 tickers_df.to_csv("tickers.csv", index=False)
