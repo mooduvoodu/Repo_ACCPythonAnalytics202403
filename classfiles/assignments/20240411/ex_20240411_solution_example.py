@@ -42,13 +42,14 @@ def fetch_stock_data(tlist,aggrtime,startfromdate,opmode, enddt = dt.now(timezon
     fenddt = enddt.strftime('%Y-%m-%d')
     tickers = tlist
     roundtripcounter = 0
-    tickeraggrdatalist = []
+    
   
     match opmode:
         case 'full':
             for t in tlist:
                 print(f'working on stock {t}')
-                api_url = f'https://api.polygon.io/v2/aggs/ticker/AAPL/range/10/second/{startfromdate}/{fenddt}?adjusted=true&sort=asc&limit=50000&apiKey={api_key}'
+                tickeraggrdatalist = []
+                api_url = f'https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/minute/{startfromdate}/{fenddt}?adjusted=true&sort=asc&limit=50000&apiKey={api_key}'
                 while api_url:
                     roundtripcounter += 1
                     print(f'Round trip #{roundtripcounter}')
@@ -74,7 +75,7 @@ def fetch_stock_data(tlist,aggrtime,startfromdate,opmode, enddt = dt.now(timezon
             for t in tlist:
                 #Get Most recent time stamp from existing file, assuming the file exists.. error handling for this should be add at some point for missing file
                 data = pd.read_csv(f"/workspaces/Repo_ACCPythonAnalytics202403/kclubb/stockhistory/{t}.csv")
-
+                tickeraggrdatalist = []
                 # Convert the epoch time in milliseconds to datetime
                 data['date'] = pd.to_datetime(data['t'], unit='ms')
                  # Find the most recent date in the 'date' column
@@ -112,9 +113,9 @@ def fetch_stock_data(tlist,aggrtime,startfromdate,opmode, enddt = dt.now(timezon
 # ACTUAL CALLING CODE
         
 api_key = 'dIUMbUHa3jguPZ9WiF5HUgIS4FWhPWlq'
-#tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','full')
+tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','full')
 
 #try the incremental mode
-tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','incremental')
+#tickeraggr_df = fetch_stock_data(ticketlist,10,'2024-04-01','incremental')
 
 

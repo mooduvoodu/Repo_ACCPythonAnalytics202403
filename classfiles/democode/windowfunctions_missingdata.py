@@ -32,6 +32,10 @@ df_sales = pd.DataFrame(data_fact_sales)
 df_customers = pd.DataFrame(data_dim_customer)
 df_dates = pd.DataFrame(data_dim_date)
 
+display(df_sales)
+display(df_customers)
+display(df_dates)
+
 # Check for missing values in each column
 missing_data = df_sales.isnull().sum()  # Output the sum of missing values per column
 
@@ -68,8 +72,9 @@ multi_null_check = df_sales[['CustomerID', 'ProductID']].isnull().any(axis=1)  #
 df_sales['Row_Number'] = df_sales.groupby('CustomerID').cumcount() + 1  # Sequential row number within each customer group
 
 # Calculate cumulative total of 'TotalPrice' within each 'CustomerID' group
-df_sales['Running_Total'] = df_sales.groupby('CustomerID')['TotalPrice'].cumsum()  # Running total of sales per customer
+df_sales['Running_Total'] = df_sales.sort_values(by='DateID').groupby('CustomerID')['TotalPrice'].cumsum()
 
+display(df_sales.sort_values(by='DateID'))
 # Calculate a moving average of 'TotalPrice' within each customer group
 df_sales['Moving_Avg'] = df_sales.groupby('CustomerID')['TotalPrice'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())
 
