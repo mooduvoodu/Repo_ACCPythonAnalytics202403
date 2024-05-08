@@ -75,4 +75,39 @@ display(df_sales['Running_Total'])
 sales_above_threshold = df_sales[df_sales['TotalPrice'] > 50].groupby('CustomerID').agg(Total_Sales=pd.NamedAgg(column='TotalPrice', aggfunc='sum'))
 display(sales_above_threshold)
 
+#11	Pivot Table
+pivot_sales = pd.pivot_table(df_sales, values='TotalPrice', index='DateID', columns='CustomerID', aggfunc='sum', fill_value=0)
 
+display(pivot_sales)
+
+#12	Time Series Analysis
+df_sales['Month'] = pd.to_datetime(df_sales['DateID'], format='%Y%m%d').dt.month
+time_series_analysis = df_sales.groupby('Month')['TotalPrice'].sum()
+display(time_series_analysis)
+
+#13 Merge with Overlapping Columns
+sales_customers_merged = pd.merge(df_sales, df_customers[['CustomerID', 'Segment']], on='CustomerID')
+
+#14 Concatenate Data Vertically
+combined_sales = pd.concat([df_sales, df_sales_previous])
+
+#15	Filtering on Joins
+filtered_join = pd.merge(df_sales, df_customers[df_customers['Country'] == 'USA'], on='CustomerID')
+
+#16 Multi-level Group By
+multilevel_groupby = df_sales.groupby(['CustomerID', 'ProductID']).agg(Total_Sales=pd.NamedAgg(column='TotalPrice', aggfunc='sum'))
+
+
+#17	Complex Conditions
+average_sale = df_sales['TotalPrice'].mean()
+sales_above_average = df_sales[df_sales['TotalPrice'] > average_sale]
+display(sales_above_average)
+
+#18 Handling Missing Data
+df_sales_filled = df_sales.fillna({'UnitPrice': df_sales['UnitPrice'].mean()})
+
+#19	Deduplication
+df_customers_deduplicated = df_customers.drop_duplicates()
+
+#20	Custom Calculations
+df_sales['Profit'] = df_sales['TotalPrice'] - (df_sales['Quantity'] * 5)  # Assuming cost per unit is 5
